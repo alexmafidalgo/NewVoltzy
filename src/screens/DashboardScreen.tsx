@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, Switch, ScrollView, TouchableOpacity } from 'react-native';
-import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg';
+import { View, Text, Switch, ScrollView, TouchableOpacity, Image } from 'react-native';
+import Svg, { Path, Defs, LinearGradient as SvgLinearGradient, Stop } from 'react-native-svg';
+import { LinearGradient } from 'expo-linear-gradient';
+import { PROFILE_PLACEHOLDER } from '../data/mockData';
 import styles from '../styles/dashboardStyles';
 
 const DashboardScreen: React.FC = () => {
@@ -18,44 +20,60 @@ const DashboardScreen: React.FC = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#5fb36a' }}>
-      <ScrollView contentContainerStyle={styles.container}>
-        {/* Header Section with gradient background */}
-        <View style={styles.topArea}>
-          <View style={styles.headerRow}>
-            <TouchableOpacity style={styles.homeIcon}>
-              <Svg width={28} height={28} viewBox="0 0 24 24">
-                <Path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#fff" strokeWidth={2} fill="none"/>
-                <Path d="M9 22V12h6v10" stroke="#fff" strokeWidth={2} fill="none"/>
-              </Svg>
-            </TouchableOpacity>
+    <LinearGradient colors={['#78B85E', '#1E7B45']} style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Decorative Blobs - Simplified */}
+        <View style={styles.blobContainer}>
+          <View style={[styles.blob, { top: 100, left: -50 }]} />
+          <View style={[styles.blob, { top: 300, right: -30 }]} />
+          <View style={[styles.blob, { bottom: 100, left: 20 }]} />
+        </View>
+        {/* Glassmorphism Header */}
+        <View style={styles.glassHeader}>
+          <View style={styles.headerContent}>
+            {/* Home Icon */}
+            <Svg width={47} height={47} viewBox="0 0 47 47" fill="none">
+              <Path
+                d="M17.625 43.0832V23.4998H29.375V43.0832M5.875 17.6248L23.5 3.9165L41.125 17.6248V39.1665C41.125 40.2053 40.7124 41.2015 39.9778 41.936C39.2433 42.6705 38.2471 43.0832 37.2083 43.0832H9.79167C8.7529 43.0832 7.75668 42.6705 7.02216 41.936C6.28765 41.2015 5.875 40.2053 5.875 39.1665V17.6248Z"
+                stroke="#F3F3F3"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </Svg>
 
-            <View style={{ flex: 1, marginLeft: 16, alignItems: 'center' }}>
-              <Text style={styles.header}>Hello, user</Text>
-              <Text style={styles.houseText}>House 1</Text>
+            {/* Title Section */}
+            <View style={styles.titleContainer}>
+              <Text style={styles.headerTitle}>Dashboard</Text>
+              <View style={styles.divider} />
             </View>
 
-            <TouchableOpacity>
-              <View style={styles.avatar}>
-                {/* Avatar placeholder - you can add image here */}
-              </View>
-            </TouchableOpacity>
+            {/* Profile Picture */}
+            <View style={styles.profilePicture}>
+              <Image
+                source={{ uri: PROFILE_PLACEHOLDER }}
+                style={styles.profileImage}
+              />
+            </View>
           </View>
 
-          {/* Stats Cards */}
-          <View style={styles.statsRow}>
-            <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Lights on</Text>
-              <Text style={styles.statValue}>5</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Energy Used</Text>
-              <Text style={styles.statValue}>32.4<Text style={styles.statUnit}>kW/h</Text></Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Energy Saved</Text>
-              <Text style={styles.statValue}>14.8<Text style={styles.statUnit}>kWh</Text></Text>
-            </View>
+          {/* House ID */}
+          <Text style={styles.houseId}>House 1</Text>
+        </View>
+
+        {/* Stats Cards */}
+        <View style={styles.statsSection}>
+          <View style={styles.statCard}>
+            <Text style={styles.statLabel}>Lights on</Text>
+            <Text style={styles.statValue}>5</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statLabel}>Energy Used</Text>
+            <Text style={styles.statValue}>32.4<Text style={styles.statUnit}>kW/h</Text></Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statLabel}>Energy Saved</Text>
+            <Text style={styles.statValue}>14.8<Text style={styles.statUnit}>kWh</Text></Text>
           </View>
         </View>
 
@@ -65,13 +83,13 @@ const DashboardScreen: React.FC = () => {
           <View style={{ height: 120, marginTop: 12 }}>
             <Svg width="100%" height="100%" viewBox="0 0 350 120">
               <Defs>
-                <LinearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                  <Stop offset="0" stopColor="#7ee08a" stopOpacity="0.4" />
-                  <Stop offset="1" stopColor="#7ee08a" stopOpacity="0.02" />
-                </LinearGradient>
+                <SvgLinearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <Stop offset="0" stopColor="#FFFFFF" stopOpacity="0.4" />
+                  <Stop offset="1" stopColor="#FFFFFF" stopOpacity="0.02" />
+                </SvgLinearGradient>
               </Defs>
               <Path d={generateAreaPath([20, 35, 65, 45, 55, 30, 25], 350, 120)} fill="url(#chartGrad)" />
-              <Path d={generateLinePath([20, 35, 65, 45, 55, 30, 25], 350, 120)} stroke="#5fb36a" strokeWidth={3} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              <Path d={generateLinePath([20, 35, 65, 45, 55, 30, 25], 350, 120)} stroke="#FFFFFF" strokeWidth={3} fill="none" strokeLinecap="round" strokeLinejoin="round" />
             </Svg>
           </View>
           <View style={styles.timeLabels}>
@@ -84,8 +102,10 @@ const DashboardScreen: React.FC = () => {
         </View>
 
         {/* Lights Section */}
-        <View style={styles.lightsCard}>
+        <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Lights</Text>
+        </View>
+        <View style={styles.lightsCard}>
           <View style={styles.lightsGrid}>
             <View style={styles.lightItem}>
               <View>
@@ -95,8 +115,8 @@ const DashboardScreen: React.FC = () => {
               <Switch
                 value={lights.kitchen}
                 onValueChange={() => toggleLight('kitchen')}
-                trackColor={{ false: '#e0e0e0', true: '#7ee08a' }}
-                thumbColor="#fff"
+                trackColor={{ false: '#e0e0e0', true: '#FFFFFF' }}
+                thumbColor="#78B85E"
               />
             </View>
             <View style={styles.lightItem}>
@@ -107,8 +127,8 @@ const DashboardScreen: React.FC = () => {
               <Switch
                 value={lights.bedroom}
                 onValueChange={() => toggleLight('bedroom')}
-                trackColor={{ false: '#e0e0e0', true: '#7ee08a' }}
-                thumbColor="#fff"
+                trackColor={{ false: '#e0e0e0', true: '#FFFFFF' }}
+                thumbColor="#78B85E"
               />
             </View>
             <View style={styles.lightItem}>
@@ -119,8 +139,8 @@ const DashboardScreen: React.FC = () => {
               <Switch
                 value={lights.bathroom}
                 onValueChange={() => toggleLight('bathroom')}
-                trackColor={{ false: '#e0e0e0', true: '#7ee08a' }}
-                thumbColor="#fff"
+                trackColor={{ false: '#e0e0e0', true: '#FFFFFF' }}
+                thumbColor="#78B85E"
               />
             </View>
             <View style={styles.lightItem}>
@@ -131,16 +151,18 @@ const DashboardScreen: React.FC = () => {
               <Switch
                 value={lights.livingRoom}
                 onValueChange={() => toggleLight('livingRoom')}
-                trackColor={{ false: '#e0e0e0', true: '#7ee08a' }}
-                thumbColor="#fff"
+                trackColor={{ false: '#e0e0e0', true: '#FFFFFF' }}
+                thumbColor="#78B85E"
               />
             </View>
           </View>
         </View>
 
         {/* Routines Section */}
-        <View style={styles.routinesCard}>
+        <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Routines</Text>
+        </View>
+        <View style={styles.routinesCard}>
           <View style={styles.routineRow}>
             {['Night', 'Day', 'Eco', 'Comfort'].map(r => (
               <TouchableOpacity 
@@ -163,41 +185,8 @@ const DashboardScreen: React.FC = () => {
             <Text style={styles.houseButtonText}>Edit House</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={{ height: 100 }} />
       </ScrollView>
-
-      {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
-          <Svg width={28} height={28} viewBox="0 0 24 24">
-            <Path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" stroke="#2ca24b" strokeWidth={2} fill="none"/>
-          </Svg>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Svg width={28} height={28} viewBox="0 0 24 24">
-            <Path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#2ca24b" strokeWidth={2} fill="none"/>
-          </Svg>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItemCenter}>
-          <Svg width={32} height={32} viewBox="0 0 24 24">
-            <Path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#fff" stroke="#fff" strokeWidth={1.5}/>
-            <Path d="M9 22V12h6v10" fill="#2ca24b" stroke="#2ca24b" strokeWidth={1.5}/>
-          </Svg>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Svg width={28} height={28} viewBox="0 0 24 24">
-            <Path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" stroke="#2ca24b" strokeWidth={2} fill="none"/>
-          </Svg>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Svg width={28} height={28} viewBox="0 0 24 24">
-            <Path d="M3 3v18h18" stroke="#2ca24b" strokeWidth={2} fill="none"/>
-            <Path d="M18 17l-5-5-5 3-5-3" stroke="#2ca24b" strokeWidth={2} fill="none"/>
-          </Svg>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </LinearGradient>
   );
 };
 

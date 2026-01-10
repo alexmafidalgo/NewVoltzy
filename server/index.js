@@ -7,6 +7,13 @@ require('dotenv').config();
 
 const pool = require('./db');
 
+// Import route modules
+const housesRoutes = require('./routes/houses');
+const lightsRoutes = require('./routes/lights');
+const routinesRoutes = require('./routes/routines');
+const energyRoutes = require('./routes/energy');
+const userRoutes = require('./routes/user');
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -14,8 +21,10 @@ app.use(bodyParser.json());
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret';
 
-// Simple health
+// Simple health check
 app.get('/health', (req, res) => res.json({ ok: true }));
+
+// ==================== AUTH ENDPOINTS ====================
 
 // POST /auth/signup
 app.post('/auth/signup', async (req, res) => {
@@ -28,7 +37,7 @@ app.post('/auth/signup', async (req, res) => {
     if (rows && rows.length) return res.status(409).json({ message: 'Email already in use' });
 
     const hash = await bcrypt.hash(password, 10);
-      const [result] = await pool.query('INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)', [name, email, hash]);
+    const [result] = await pool.query('INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)', [name, email, hash]);
     const userId = result.insertId;
 
     const token = jwt.sign({ id: userId }, JWT_SECRET, { expiresIn: '7d' });
@@ -45,8 +54,8 @@ app.post('/auth/signin', async (req, res) => {
   if (!identifier || !password) return res.status(400).json({ message: 'Missing fields' });
 
   try {
-      // Only allow email login
-      const [rows] = await pool.query('SELECT * FROM users WHERE email = ? LIMIT 1', [identifier]);
+    // Only allow email login
+    const [rows] = await pool.query('SELECT * FROM users WHERE email = ? LIMIT 1', [identifier]);
 
     if (!rows || rows.length === 0) return res.status(401).json({ message: 'Invalid credentials' });
     const user = rows[0];
@@ -61,4 +70,15 @@ app.post('/auth/signin', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Auth server listening on port ${PORT}`));
+// ==================== API ROUTES ====================
+
+// Mount API route modules
+app.use('/api/houses', housesRoutes);
+app.use('/api/lights', lightsRoutes);
+app.use('/api/routines', routinesRoutes);
+app.use('/api', energyRoutes);
+app.use('/api/user', userRoutes);
+
+// ==================== START SERVER ====================
+
+app.listen(PORT, () => console.log(`Smart Energy API server listening on port ${PORT}`));

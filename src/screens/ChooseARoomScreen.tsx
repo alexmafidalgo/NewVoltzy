@@ -9,10 +9,11 @@ type RootStackParamList = {
   SignIn: undefined;
   Dashboard: undefined;
   Welcome: undefined;
-  LightingControl: undefined;
+  ChooseARoom: undefined;
+  RoomLights: { roomName: string };
 };
 
-type Props = NativeStackScreenProps<RootStackParamList, 'LightingControl'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ChooseARoom'>;
 
 interface RoomCardProps {
   roomName: string;
@@ -27,12 +28,12 @@ const RoomCard: React.FC<RoomCardProps> = ({ roomName, onPress }) => {
   );
 };
 
-const LightingControlScreen: React.FC<Props> = ({ navigation }) => {
+const ChooseARoomScreen: React.FC<Props> = ({ navigation }) => {
   const rooms = ['Living Room', 'Kitchen', 'Small Bedroom', 'Big Bedroom', 'Bathroom', 'Hall'];
 
   const handleRoomPress = (roomName: string) => {
     console.log(`Room selected: ${roomName}`);
-    // Navigate to room details or handle room selection
+    navigation.navigate('RoomLights', { roomName });
   };
 
   const handleAddRoom = () => {
@@ -107,7 +108,8 @@ const LightingControlScreen: React.FC<Props> = ({ navigation }) => {
         <View style={styles.glassHeader}>
           <View style={styles.headerContent}>
             {/* Home Icon */}
-            <Svg width={47} height={47} viewBox="0 0 47 47" fill="none">
+            <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} activeOpacity={0.7}>
+              <Svg width={47} height={47} viewBox="0 0 47 47" fill="none">
               <Path
                 d="M17.625 43.0832V23.4998H29.375V43.0832M5.875 17.6248L23.5 3.9165L41.125 17.6248V39.1665C41.125 40.2053 40.7124 41.2015 39.9778 41.936C39.2433 42.6705 38.2471 43.0832 37.2083 43.0832H9.79167C8.7529 43.0832 7.75668 42.6705 7.02216 41.936C6.28765 41.2015 5.875 40.2053 5.875 39.1665V17.6248Z"
                 stroke="#F3F3F3"
@@ -116,6 +118,7 @@ const LightingControlScreen: React.FC<Props> = ({ navigation }) => {
                 strokeLinejoin="round"
               />
             </Svg>
+            </TouchableOpacity>
 
             {/* Title Section */}
             <View style={styles.titleContainer}>
@@ -168,7 +171,9 @@ const LightingControlScreen: React.FC<Props> = ({ navigation }) => {
         <View style={styles.navBackground} />
         
         {/* Active indicator circle */}
-        <Ellipse cx={40} cy={38.5} rx={40} ry={38.5} fill="#649064" style={styles.activeIndicator} />
+        <Svg height={77} width={80} style={styles.activeIndicator}>
+          <Ellipse cx={40} cy={38.5} rx={40} ry={38.5} fill="#649064" />
+        </Svg>
 
         {/* Navigation Icons */}
         <View style={styles.navIcons}>
@@ -272,4 +277,4 @@ const LightingControlScreen: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default LightingControlScreen;
+export default ChooseARoomScreen;

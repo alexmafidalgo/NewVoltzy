@@ -94,7 +94,7 @@ export default StyleSheet.create({
   addButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 12,
@@ -107,7 +107,7 @@ export default StyleSheet.create({
   },
   addButtonText: {
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#000000',
   },
 
@@ -121,7 +121,7 @@ export default StyleSheet.create({
   roomCard: {
     width: (width - 48) / 2, // Two columns with padding
     minHeight: 112,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     paddingVertical: 10,
     paddingHorizontal: 10,
@@ -136,7 +136,7 @@ export default StyleSheet.create({
   },
   roomCardText: {
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#000000',
     textAlign: 'center',
   },

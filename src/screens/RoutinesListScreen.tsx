@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 3, height: 3 },
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   addButtonText: {
     fontFamily: 'Comfortaa',
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#000000',
   },
   routinesGrid: {
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   routineCard: {
     width: (width - 48) / 2,
     height: 112,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   routineName: {
     fontFamily: 'Comfortaa',
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#000000',
   },
 });

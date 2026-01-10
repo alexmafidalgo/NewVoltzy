@@ -9,16 +9,18 @@ import RoomLightsScreen from '../screens/RoomLightsScreen';
 import LightDetailScreen from '../screens/LightDetailScreen';
 import RoutinesListScreen from '../screens/RoutinesListScreen';
 import RoutineDetailScreen from '../screens/RoutineDetailScreen';
-import LightingControlScreen from '../screens/LightingControlScreen';
+import ChooseARoomScreen from '../screens/ChooseARoomScreen';
+import DashboardScreen from '../screens/DashboardScreen';
 
 const Tab = createBottomTabNavigator();
 const LightsStack = createNativeStackNavigator();
 const RoutinesStack = createNativeStackNavigator();
 
-// Stack navigator for Lights tab (Frame 1 → Frame 2)
+// Stack navigator for Lights tab (ChooseARoom → RoomLights → LightDetail)
 function LightsStackNavigator() {
   return (
     <LightsStack.Navigator screenOptions={{ headerShown: false }}>
+      <LightsStack.Screen name="ChooseARoom" component={ChooseARoomScreen} />
       <LightsStack.Screen name="RoomLights" component={RoomLightsScreen} />
       <LightsStack.Screen name="LightDetail" component={LightDetailScreen} />
     </LightsStack.Navigator>
@@ -213,7 +215,7 @@ export default function BottomTabNavigator() {
       />
       <Tab.Screen
         name="Home"
-        component={LightingControlScreen}
+        component={DashboardScreen}
         options={{
           tabBarIcon: ({ focused }) => <HomeIcon focused={focused} />,
         }}

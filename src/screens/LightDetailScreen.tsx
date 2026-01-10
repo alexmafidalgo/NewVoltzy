@@ -77,8 +77,8 @@ export default function LightDetailScreen({ route, navigation }: any) {
         </TouchableOpacity>
 
         {/* Light Info */}
-        <Text style={styles.roomName}>Living Room</Text>
-        <Text style={styles.lightName}>Ceiling Light</Text>
+        <Text style={styles.roomName}>{light.room}</Text>
+        <Text style={styles.lightName}>{light.name}</Text>
 
         {/* Power Control */}
         <View style={styles.controlCard}>

@@ -14,7 +14,9 @@ import { mockLights, PROFILE_PLACEHOLDER } from '../data/mockData';
 
 const { width } = Dimensions.get('window');
 
-export default function RoomLightsScreen({ navigation }: any) {
+export default function RoomLightsScreen({ navigation, route }: any) {
+  const { roomName = 'Living Room' } = route.params || {};
+  
   const handleLightPress = (lightId: string) => {
     navigation.navigate('LightDetail', { lightId });
   };
@@ -32,7 +34,7 @@ export default function RoomLightsScreen({ navigation }: any) {
         {/* Header with Glass Effect */}
         <View style={styles.glassHeader}>
           <View style={styles.headerContent}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Svg width="47" height="47" viewBox="0 0 47 47" fill="none">
                 <Path
                   d="M17.625 43.0832V23.4998H29.375V43.0832M5.875 17.6248L23.5 3.9165L41.125 17.6248V39.1665C41.125 40.2053 40.7124 41.2015 39.9778 41.936C39.2433 42.6705 38.2471 43.0832 37.2083 43.0832H9.79167C8.7529 43.0832 7.75668 42.6705 7.02216 41.936C6.28765 41.2015 5.875 40.2053 5.875 39.1665V17.6248Z"
@@ -73,7 +75,7 @@ export default function RoomLightsScreen({ navigation }: any) {
         </TouchableOpacity>
 
         {/* Room Name */}
-        <Text style={styles.roomName}>Living Room</Text>
+        <Text style={styles.roomName}>{roomName}</Text>
 
         {/* Section Header */}
         <View style={styles.sectionHeader}>
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 3, height: 3 },
@@ -231,7 +233,7 @@ const styles = StyleSheet.create({
   addButtonText: {
     fontFamily: 'Comfortaa',
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#000000',
   },
   lightsGrid: {
@@ -244,7 +246,7 @@ const styles = StyleSheet.create({
   lightCard: {
     width: (width - 48) / 2,
     height: 112,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
@@ -257,14 +259,14 @@ const styles = StyleSheet.create({
   lightName: {
     fontFamily: 'Comfortaa',
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '500',
     color: '#000000',
   },
   editButton: {
     alignSelf: 'center',
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     marginTop: 32,
     shadowColor: '#000',
@@ -276,7 +278,7 @@ const styles = StyleSheet.create({
   editButtonText: {
     fontFamily: 'Comfortaa',
     fontSize: 12,
-    fontWeight: '400',
-    color: '#000000',
+    fontWeight: '500',
+    color: '#000000'
   },
 });
