@@ -230,7 +230,7 @@ export default function BottomTabNavigator() {
       />
       <Tab.Screen
         name="Analytics"
-        component={PlaceholderScreen}
+        component={ConsumptionScreen}
         options={{
           tabBarIcon: ({ focused }) => <GraphIcon focused={focused} />,
         }}
